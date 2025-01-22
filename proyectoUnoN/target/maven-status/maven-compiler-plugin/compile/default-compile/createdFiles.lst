@@ -1,0 +1,7 @@
+dao\PersonaRepository.class
+modelo\Persona.class
+dao\TelefonoRepository.class
+modelo\Telefono.class
+controlador\Controlador.class
+com\mycompany\proyectounon\ProyectoUnoN.class
+vista\Vista.class
