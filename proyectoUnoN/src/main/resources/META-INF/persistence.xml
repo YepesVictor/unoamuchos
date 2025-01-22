@@ -9,7 +9,9 @@ Click nbfs://nbhost/SystemFileSystem/Templates/XML/XMLDocument.xml to edit this 
         <class>modelo.Departamento</class>
         <class>modelo.Empleado</class>
         -->
-            
+        <class>modelo.Persona</class>
+        <class>modelo.Telefono</class>
+        
         <exclude-unlisted-classes>false</exclude-unlisted-classes>
         <properties>
             <property name="jakarta.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>

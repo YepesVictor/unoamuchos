@@ -8,6 +8,7 @@ import dao.*;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
+import modelo.Compania;
 import modelo.Persona;
 import modelo.Telefono;
 import vista.Vista;
@@ -43,7 +44,8 @@ public class Controlador {
 
     public void insertarTelefono() {
         Persona p = new Persona("Pepe");
-        Telefono t = new Telefono(123456789, "Movistar", p);
-
+        Compania c=new Compania("Movistar");
+        Telefono t = new Telefono(123456789, c, p);
+        tr.insert(t);
     }
 }

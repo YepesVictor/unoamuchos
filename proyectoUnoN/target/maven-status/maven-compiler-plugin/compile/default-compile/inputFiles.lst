@@ -1,7 +1,8 @@
-E:\ad_ORM\proyectoUnoN\src\main\java\com\mycompany\proyectounon\ProyectoUnoN.java
-E:\ad_ORM\proyectoUnoN\src\main\java\controlador\Controlador.java
-E:\ad_ORM\proyectoUnoN\src\main\java\dao\PersonaRepository.java
-E:\ad_ORM\proyectoUnoN\src\main\java\dao\TelefonoRepository.java
-E:\ad_ORM\proyectoUnoN\src\main\java\modelo\Persona.java
-E:\ad_ORM\proyectoUnoN\src\main\java\modelo\Telefono.java
-E:\ad_ORM\proyectoUnoN\src\main\java\vista\Vista.java
+C:\Users\victo\Documents\GitHub\unoamuchos\proyectoUnoN\src\main\java\vista\Vista.java
+C:\Users\victo\Documents\GitHub\unoamuchos\proyectoUnoN\src\main\java\modelo\Persona.java
+C:\Users\victo\Documents\GitHub\unoamuchos\proyectoUnoN\src\main\java\controlador\Controlador.java
+C:\Users\victo\Documents\GitHub\unoamuchos\proyectoUnoN\src\main\java\dao\PersonaRepository.java
+C:\Users\victo\Documents\GitHub\unoamuchos\proyectoUnoN\src\main\java\modelo\Compania.java
+C:\Users\victo\Documents\GitHub\unoamuchos\proyectoUnoN\src\main\java\modelo\Telefono.java
+C:\Users\victo\Documents\GitHub\unoamuchos\proyectoUnoN\src\main\java\dao\TelefonoRepository.java
+C:\Users\victo\Documents\GitHub\unoamuchos\proyectoUnoN\src\main\java\com\mycompany\proyectounon\ProyectoUnoN.java

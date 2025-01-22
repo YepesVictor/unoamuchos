@@ -1,3 +1,4 @@
+modelo\Compania.class
 dao\PersonaRepository.class
 modelo\Persona.class
 dao\TelefonoRepository.class

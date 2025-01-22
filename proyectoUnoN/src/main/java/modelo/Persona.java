@@ -14,6 +14,7 @@ import java.util.Objects;
  * @author ProfDiurno
  */
 @Entity
+@Embeddable
 @Table(name = "Persona")
 public class Persona implements Serializable {
 
