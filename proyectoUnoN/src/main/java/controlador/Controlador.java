@@ -43,9 +43,9 @@ public class Controlador {
     }
 
     public void insertarTelefono() {
-        Persona p = new Persona("Pepe");
+        Persona p = new Persona();
         Compania c=new Compania("Movistar");
-        Telefono t = new Telefono(122246789, c, p);
+        Telefono t = new Telefono(122346789, c, p);
         tr.insert(t);
     }
 }

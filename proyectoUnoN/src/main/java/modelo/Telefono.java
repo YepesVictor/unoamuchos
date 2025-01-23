@@ -38,7 +38,7 @@ public class Telefono implements Serializable {
     })
     private Compania c;
     
-    @ManyToOne(cascade = CascadeType.PERSIST) 
+    @ManyToOne//(cascade = CascadeType.PERSIST) 
     @JoinColumn(name = "id_persona", foreignKey = @ForeignKey(name = "tel_per_fk"))
     // @JoinColumn(name = "id_persona", referencedColumnName = "cod")
     private Persona p;
