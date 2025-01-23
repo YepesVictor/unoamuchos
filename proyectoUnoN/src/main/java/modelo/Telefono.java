@@ -31,14 +31,15 @@ public class Telefono implements Serializable {
 //    private String loc;
     
     @Embedded
-    @AttributeOverrides({
-        @AttributeOverride(name="nombre",column=@Column(name="nombreCompania")),
-        @AttributeOverride(name="telefono",column=@Column(name="telCompania")),
-        @AttributeOverride(name="localidad",column=@Column(name="localidadCompania"))
-    })
+//    @AttributeOverrides({
+//        @AttributeOverride(name = "nombre", column = @Column(name = "nombreCompania")),
+//        @AttributeOverride(name = "telefono", column = @Column(name = "telCompania")),
+//        @AttributeOverride(name = "localidad", column = @Column(name = "localidadCompania"))
+//    })
     private Compania c;
-    
-    @ManyToOne//(cascade = CascadeType.PERSIST) 
+
+    //Tanto el name como la foreign key como el valor referenciado son de la Base de datos
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_persona", foreignKey = @ForeignKey(name = "tel_per_fk"))
     // @JoinColumn(name = "id_persona", referencedColumnName = "cod")
     private Persona p;
@@ -63,8 +64,11 @@ public class Telefono implements Serializable {
     public Telefono() {
     }
 
-    
-    
+    public Telefono(int telefono, Compania c) {
+        this.telefono = telefono;
+        this.c = c;
+    }
+
 //    public Telefono(int telefono, String nombre, Persona p) {
 //        this.telefono = telefono;
 //        this.nombre = nombre;
@@ -78,7 +82,6 @@ public class Telefono implements Serializable {
 //        this.loc = loc;
 //        this.p = p;
 //    }
-
     public int getTelefono() {
         return telefono;
     }
@@ -110,7 +113,6 @@ public class Telefono implements Serializable {
 //    public void setLoc(String loc) {
 //        this.loc = loc;
 //    }
-
     public Persona getP() {
         return p;
     }
@@ -119,5 +121,4 @@ public class Telefono implements Serializable {
         this.p = p;
     }
 
-    
 }

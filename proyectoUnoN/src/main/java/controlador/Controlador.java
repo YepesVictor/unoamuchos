@@ -8,6 +8,8 @@ import dao.*;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
+import java.util.ArrayList;
+import java.util.Collection;
 import modelo.Compania;
 import modelo.Persona;
 import modelo.Telefono;
@@ -33,19 +35,67 @@ public class Controlador {
 
         this.pr = new PersonaRepository(em);
         this.tr = new TelefonoRepository(em2);
+//        insertarPersonaTelefono();
+//        insertarTelefono();
 //        insertarPersona();
-        insertarTelefono();
+//        personaTodo();
+//        personaByName();
+        selectByApellido();
     }
 
     public void insertarPersona() {
         Persona p = new Persona("Victor");
         pr.insert(p);
+
+    }
+
+    public void insertarPersonaTelefono() {
+        Compania c = new Compania("Movista", 123456789, "Logroño");
+        Telefono t1 = new Telefono(123456789, c);
+        Telefono t2 = new Telefono(987654321, c);
+        Telefono t3 = new Telefono(456789123, c);
+        Collection<Telefono> telefonos = new ArrayList<Telefono>();
+        telefonos.add(t1);
+        telefonos.add(t2);
+        telefonos.add(t3);
+        Persona p = new Persona("Victor", telefonos);
+        pr.insert(p);
     }
 
     public void insertarTelefono() {
-        Persona p = new Persona();
-        Compania c=new Compania("Movistar");
-        Telefono t = new Telefono(122346789, c, p);
+        Persona p = pr.selectById(1);
+        Compania c = new Compania("Movistar", 123456789, "Lorgoño");
+        Telefono t = new Telefono(112346789, c, p);
         tr.insert(t);
+        cerrar2();
+    }
+
+    public void personaTodo() {
+        ArrayList<Persona> p = (ArrayList<Persona>) pr.selectAll();
+        for (Persona persona : p) {
+            v.mostrar(persona.toString());
+        }
+    }
+
+    public void personaByName() {
+        ArrayList<Persona> p = (ArrayList<Persona>) pr.personaByName("Victor");
+        for (Persona persona : p) {
+            v.mostrar(persona.toString());
+        }
+    }
+
+    public void selectByApellido() {
+        ArrayList<Persona> p = (ArrayList<Persona>) pr.selectByApellido("null");
+        for (Persona persona : p) {
+            v.mostrar(persona.toString());
+        }
+    }
+
+    public void cerrar() {
+        em.close();
+    }
+
+    public void cerrar2() {
+        em2.close();
     }
 }

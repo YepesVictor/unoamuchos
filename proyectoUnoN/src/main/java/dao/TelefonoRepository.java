@@ -26,6 +26,10 @@ public class TelefonoRepository {
         em.getTransaction().commit();
     }
 
+    public Telefono selectById(int telefono){
+        Telefono t=em.find(Telefono.class, telefono);
+        return t;
+    }
     public void cerrar(EntityManager e) {
         e.close();
     }

@@ -6,6 +6,7 @@ package modelo;
  */
 import jakarta.persistence.*;
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
 import java.util.Objects;
 
@@ -14,8 +15,11 @@ import java.util.Objects;
  * @author ProfDiurno
  */
 @Entity
-@Embeddable
 @Table(name = "Persona")
+@NamedQueries({
+    @NamedQuery(name = "selectByApellido", query = "select p from Persona p where p.apellido=:ape"),
+    @NamedQuery(name = "selectTodos", query = "select per from Persona per")
+})
 public class Persona implements Serializable {
 
     @Id
@@ -36,30 +40,23 @@ public class Persona implements Serializable {
     @Column(name = "fNacimiento")
     @Temporal(TemporalType.DATE)
     private Date fechaNacimiento;
-
     /* Siempre hay que indicar cuando sea date, time, datetime o timestamp
     la anotación Temporal */
- /*
-    private String calle;
-    private int numero;
-    private int codigoPostal;
-     */
+
+ /*En el name ponemos el nombre que lo identifica en la clase java*/
+    @OneToMany(mappedBy = "telefono", cascade = CascadeType.ALL)
+    private Collection<Telefono> telefonos;
 
     public Persona() {
     }
 
-    public Persona(int id, String nombre) {
-        this.id = id;
-        this.nombre = nombre;
-    }
-
-    public Persona(int id) {
-        this.id = id;
-    }
-
-    
     public Persona(String nombre) {
         this.nombre = nombre;
+    }
+
+    public Persona(String nombre, Collection<Telefono> telefonos) {
+        this.nombre = nombre;
+        this.telefonos = telefonos;
     }
 
     public Persona(int id, String nombre, String apellido, Date fechaNacimiento) {
@@ -73,6 +70,27 @@ public class Persona implements Serializable {
         this.nombre = nombre;
         this.apellido = apellido;
         this.fechaNacimiento = fechaNacimiento;
+    }
+
+    public Persona(int id, String nombre, String apellido, Date fechaNacimiento, Collection<Telefono> telefonos) {
+        this.id = id;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.fechaNacimiento = fechaNacimiento;
+        this.telefonos = telefonos;
+    }
+
+    public Collection<Telefono> getTelefonos() {
+        return telefonos;
+    }
+
+    public void setTelefonos(Collection<Telefono> telefonos) {
+        this.telefonos = telefonos;
+    }
+
+    @Override
+    public String toString() {
+        return "Persona{" + "id=" + id + ", nombre=" + nombre + ", apellido=" + apellido + ", fechaNacimiento=" + fechaNacimiento + ", telefonos=" + telefonos + '}';
     }
 
     public int getId() {
@@ -105,11 +123,6 @@ public class Persona implements Serializable {
 
     public void setFechaNacimiento(Date fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
-    }
-
-    @Override
-    public String toString() {
-        return "Persona{" + "id=" + id + ", nombre=" + nombre + ", apellido=" + apellido + ", fechaNacimiento=" + fechaNacimiento + '}';
     }
 
     @Override
