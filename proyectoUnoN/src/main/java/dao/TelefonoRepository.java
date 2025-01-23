@@ -21,6 +21,7 @@ public class TelefonoRepository {
 
     public void insert(Telefono t) {
         em.getTransaction().begin();
+        //em.find(Persona.class, t.getP().getId());
         em.persist(t);
         em.getTransaction().commit();
     }

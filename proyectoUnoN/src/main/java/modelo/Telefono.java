@@ -60,6 +60,10 @@ public class Telefono implements Serializable {
         this.p = p;
     }
 
+    public Telefono() {
+    }
+
+    
     
 //    public Telefono(int telefono, String nombre, Persona p) {
 //        this.telefono = telefono;
