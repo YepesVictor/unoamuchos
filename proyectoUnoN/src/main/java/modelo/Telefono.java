@@ -14,9 +14,9 @@ import java.util.Objects;
  */
 @Entity
 @Table(name = "Telefono")
-@NamedQueries({
-    @NamedQuery(name = "telByCompania", query = "select t from Telefono t where nombreCompania=:compania"),
-    @NamedQuery(name = "telByPersonaLocalidad", query = "select t from Telefono t where id_persona=:id AND localidadCompania=:compania")
+@NamedQueries({//ESTO ES PARTE DE LO QUE MANDO
+    @NamedQuery(name = "telByCompania", query = "select t from Telefono t where t.c.nombre=:compania"),
+    @NamedQuery(name = "telByPersonaLocalidad", query = "select t from Telefono t where t.p.id=:id_per AND t.c.localidad=:com_loc")
 })
 public class Telefono implements Serializable {
 

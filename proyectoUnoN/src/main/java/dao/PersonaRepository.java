@@ -80,6 +80,14 @@ public class PersonaRepository {
         return em.createNamedQuery("from Persona", Persona.class).getResultList();
     }
 
+    //Consultas nativas
+    public void cerrar(EntityManager e) {
+        e.close();
+    }
+
+    /*
+    ESTO FUE LO QUE HICIMOS HOY 
+     */
     //Actualizacion
     public void update(int id, Persona personaNueva) {
         Persona pActualizar = selectById(id);
@@ -112,8 +120,4 @@ public class PersonaRepository {
         }
     }
 
-    //Consultas nativas
-    public void cerrar(EntityManager e) {
-        e.close();
-    }
 }

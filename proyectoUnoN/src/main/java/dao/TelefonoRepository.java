@@ -35,6 +35,14 @@ public class TelefonoRepository {
         return t;
     }
 
+     public void cerrar(EntityManager e) {
+        e.close();
+    }
+    
+    
+    /*
+    ESTO FUE LO QUE HICIMOS HOY
+    */
     public void update(int id, Telefono telfNuevo) {
         Telefono t = selectById(id);
         if (t != null) {
@@ -64,7 +72,9 @@ public class TelefonoRepository {
         }
     }
 
+   
     /*
+    ACTIVIDADES QUE MANDO
         1. Devolver todos los telefonos
         2. Devolver todos los telefonos de una persona
         3. Devolver los numero de Movistar
@@ -79,13 +89,13 @@ public class TelefonoRepository {
 
     public List<Telefono> telefonoByPersona(int idPersona) {
         List<Telefono> telefonos = new ArrayList<>();
-        telefonos = em.createQuery("select t from Telefono t where id_persona=:id").setParameter("id", idPersona).getResultList();
+        telefonos = em.createQuery("select t from Telefono t where t.p.id=:id_per").setParameter("id_per", idPersona).getResultList();
         return telefonos;
     }
 
     public List<Telefono> telefonoByCompania(String nombreCompania) {
         List<Telefono> telefonos = new ArrayList<>();
-        telefonos = em.createQuery("select t from Telefono t where nombreCompania=:compania").setParameter("compania", nombreCompania).getResultList();
+        telefonos = em.createQuery("select t from Telefono t where t.c.nombre=:compania").setParameter("compania", nombreCompania).getResultList();
         return telefonos;
     }
 
@@ -96,11 +106,9 @@ public class TelefonoRepository {
     }
 
     public List<Telefono> telByPerComNamedQ(int id, String localidad) {
-        List<Telefono> telefonos = em.createNamedQuery("telByPersonaLocalidad", Telefono.class).setParameter("id", id).setParameter("compania", localidad).getResultList();
+        List<Telefono> telefonos = em.createNamedQuery("telByPersonaLocalidad", Telefono.class).setParameter("id_per", id).setParameter("com_loc", localidad).getResultList();
         return telefonos;
     }
 
-    public void cerrar(EntityManager e) {
-        e.close();
-    }
+    
 }
