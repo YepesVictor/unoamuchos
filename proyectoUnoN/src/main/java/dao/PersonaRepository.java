@@ -24,14 +24,14 @@ public class PersonaRepository {
     }
 
     public void insert(Persona p) {
-        //Creo una transacción
-        em.getTransaction().begin();
-
-        //Mapear un objeto en la BD
-        em.persist(p);
-
-        //Guardar
-        em.getTransaction().commit();
+        if (p != null) {
+            //Creo una transacción
+            em.getTransaction().begin();
+            //Mapear un objeto en la BD
+            em.persist(p);
+            //Guardar
+            em.getTransaction().commit();
+        }
     }
 
     //Devolver una Persona con un Id
@@ -77,10 +77,42 @@ public class PersonaRepository {
     }
 
     public List<Persona> todo() {
-        return em.createNamedQuery("from Persona",Persona.class).getResultList();
+        return em.createNamedQuery("from Persona", Persona.class).getResultList();
     }
-    //Consultas nativas
 
+    //Actualizacion
+    public void update(int id, Persona personaNueva) {
+        Persona pActualizar = selectById(id);
+        if (pActualizar != null) {
+            try {
+                pActualizar.setNombre(personaNueva.getNombre());
+                pActualizar.setApellido(personaNueva.getApellido());
+                pActualizar.setFechaNacimiento(personaNueva.getFechaNacimiento());
+                em.getTransaction().begin();
+                em.getTransaction().commit();
+            } catch (Exception e) {
+                e.printStackTrace();
+                em.getTransaction().rollback();
+            }
+        }
+    }
+
+    //Borrado
+    public void delete(int id) {
+        Persona p = selectById(id);
+        if (p != null) {
+            try {
+                em.getTransaction().begin();
+                em.remove(p);
+                em.getTransaction().commit();
+            } catch (Exception e) {
+                e.printStackTrace();
+                em.getTransaction().rollback();
+            }
+        }
+    }
+
+    //Consultas nativas
     public void cerrar(EntityManager e) {
         e.close();
     }

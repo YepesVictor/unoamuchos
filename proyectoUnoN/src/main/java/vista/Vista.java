@@ -9,7 +9,8 @@ package vista;
  * @author Diurno
  */
 public class Vista {
-    public void mostrar(String texto){
+
+    public void mostrar(String texto) {
         System.out.println(texto);
     }
 }

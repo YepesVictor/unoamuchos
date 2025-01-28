@@ -10,6 +10,7 @@ import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import modelo.Compania;
 import modelo.Persona;
 import modelo.Telefono;
@@ -40,7 +41,22 @@ public class Controlador {
 //        insertarPersona();
 //        personaTodo();
 //        personaByName();
-        selectByApellido();
+//        selectByApellido();
+//        updatePersona();
+//deletePersona();
+//        if (tr.selectById(111111111) != null) {
+//            v.mostrar(tr.selectById(111111111).toString());
+//        } else {
+//            v.mostrar("Es nulo");
+//        }
+
+//updateTelefono();
+//todoTelefono();
+//        telefonoByPersona();
+//        telefonoByCompania();
+//        telefonoByCompaniaNamedQ();
+        telByPerComNamedQ();
+
     }
 
     public void insertarPersona() {
@@ -50,24 +66,81 @@ public class Controlador {
     }
 
     public void insertarPersonaTelefono() {
-        Compania c = new Compania("Movista", 123456789, "Logroño");
-        Telefono t1 = new Telefono(123456789, c);
-        Telefono t2 = new Telefono(987654321, c);
-        Telefono t3 = new Telefono(456789123, c);
+        Compania c = new Compania("DIGI", 123456789, "Logroño");
+        Telefono t1 = new Telefono(123456489, c);
+        Telefono t2 = new Telefono(987654521, c);
+        Telefono t3 = new Telefono(456789623, c);
         Collection<Telefono> telefonos = new ArrayList<Telefono>();
         telefonos.add(t1);
         telefonos.add(t2);
         telefonos.add(t3);
-        Persona p = new Persona("Victor", telefonos);
+        Persona p = new Persona("Juan", telefonos);
         pr.insert(p);
     }
 
+    public void deletePersona() {
+        pr.delete(1);
+    }
+
+    public void updatePersona() {
+        Persona p = new Persona("Pedro");
+        pr.update(1, p);
+    }
+
     public void insertarTelefono() {
-        Persona p = pr.selectById(1);
+        Persona p = pr.selectById(3);
         Compania c = new Compania("Movistar", 123456789, "Lorgoño");
-        Telefono t = new Telefono(112346789, c, p);
+        Telefono t = new Telefono(132346789, c, p);
         tr.insert(t);
         cerrar2();
+    }
+
+    public void updateTelefono() {
+        Compania c = new Compania("DIGI");
+        Telefono t = new Telefono(604828168, c);
+        tr.update(132346789, t);
+    }
+
+    public void todoTelefono() {
+        List<Telefono> t = tr.todoTelefono();
+        for (Telefono telefono : t) {
+            v.mostrar(telefono.toString());
+        }
+    }
+
+    public void telefonoByPersona() {
+        List<Telefono> t = tr.telefonoByPersona(3);
+        for (Telefono telefono : t) {
+            v.mostrar(telefono.toString());
+        }
+    }
+
+    public void telefonoByCompania() {
+        List<Telefono> t = tr.telefonoByCompania("Movistar");
+        v.mostrar("-----------------------");
+        for (Telefono telefono : t) {
+            v.mostrar(telefono.toString());
+        }
+        v.mostrar("-----------------------");
+
+    }
+
+    public void telefonoByCompaniaNamedQ() {
+        List<Telefono> t = tr.telefonoByCompaniaNamedQ("DIGI");
+        v.mostrar("-----------------------");
+        for (Telefono telefono : t) {
+            v.mostrar(telefono.toString());
+        }
+        v.mostrar("-----------------------");
+    }
+
+    public void telByPerComNamedQ() {
+        List<Telefono> t = tr.telByPerComNamedQ(5, "Madrid");
+        v.mostrar("-----------------------");
+        for (Telefono telefono : t) {
+            v.mostrar(telefono.toString());
+        }
+        v.mostrar("-----------------------");
     }
 
     public void personaTodo() {

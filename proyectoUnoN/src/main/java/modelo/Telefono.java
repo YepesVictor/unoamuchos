@@ -14,6 +14,10 @@ import java.util.Objects;
  */
 @Entity
 @Table(name = "Telefono")
+@NamedQueries({
+    @NamedQuery(name = "telByCompania", query = "select t from Telefono t where nombreCompania=:compania"),
+    @NamedQuery(name = "telByPersonaLocalidad", query = "select t from Telefono t where id_persona=:id AND localidadCompania=:compania")
+})
 public class Telefono implements Serializable {
 
     @Id
@@ -29,7 +33,6 @@ public class Telefono implements Serializable {
 //
 //    @Column(name = "localidadCompania", length = 30)
 //    private String loc;
-    
     @Embedded
 //    @AttributeOverrides({
 //        @AttributeOverride(name = "nombre", column = @Column(name = "nombreCompania")),
@@ -39,7 +42,7 @@ public class Telefono implements Serializable {
     private Compania c;
 
     //Tanto el name como la foreign key como el valor referenciado son de la Base de datos
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne//(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_persona", foreignKey = @ForeignKey(name = "tel_per_fk"))
     // @JoinColumn(name = "id_persona", referencedColumnName = "cod")
     private Persona p;
@@ -119,6 +122,19 @@ public class Telefono implements Serializable {
 
     public void setP(Persona p) {
         this.p = p;
+    }
+
+    public Compania getC() {
+        return c;
+    }
+
+    public void setC(Compania c) {
+        this.c = c;
+    }
+
+    @Override
+    public String toString() {
+        return "Telefono{" + "telefono=" + telefono + ", c=" + c + ", p=" + p + '}';
     }
 
 }

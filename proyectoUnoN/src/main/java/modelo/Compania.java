@@ -23,7 +23,6 @@ public class Compania {
     public Compania() {
     }
 
-    
     public Compania(String nombre) {
         this.nombre = nombre;
     }
