@@ -90,7 +90,7 @@ public class Persona implements Serializable {
 
     @Override
     public String toString() {
-        return "Persona{" + "id=" + id + ", nombre=" + nombre + ", apellido=" + apellido + ", fechaNacimiento=" + fechaNacimiento + ", telefonos=" + telefonos + '}';
+        return "Persona{" + "id=" + id + ", nombre=" + nombre + ", apellido=" + apellido + ", fechaNacimiento=" + fechaNacimiento;
     }
 
     public int getId() {

@@ -10,6 +10,7 @@ import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 import modelo.Compania;
 import modelo.Persona;
@@ -43,20 +44,26 @@ public class Controlador {
 //        personaByName();
 //        selectByApellido();
 //        updatePersona();
-//deletePersona();
+//        deletePersona();
 //        if (tr.selectById(111111111) != null) {
 //            v.mostrar(tr.selectById(111111111).toString());
 //        } else {
 //            v.mostrar("Es nulo");
 //        }
+//        updateTelefono();
 
-//updateTelefono();
-//todoTelefono();
+//        todoTelefono();
 //        telefonoByPersona();
 //        telefonoByCompania();
-//        telefonoByCompaniaNamedQ();
-        telByPerComNamedQ();
-
+//        telefonoNumByCompania();
+//        telefonoByLocNamedQ();
+//        telByPerComNamedQ();
+//getPersonNative();
+//        getPersonasByNombreFecha();
+//        getPersonasNombre();
+        getTelefonoNomPer();
+//        cerrar();
+//        cerrar2();
     }
 
     public void insertarPersona() {
@@ -67,9 +74,9 @@ public class Controlador {
 
     public void insertarPersonaTelefono() {
         Compania c = new Compania("DIGI", 123456789, "Logroño");
-        Telefono t1 = new Telefono(123456489, c);
-        Telefono t2 = new Telefono(987654521, c);
-        Telefono t3 = new Telefono(456789623, c);
+        Telefono t1 = new Telefono(999999999, c);
+        Telefono t2 = new Telefono(888888888, c);
+        Telefono t3 = new Telefono(777777777, c);
         Collection<Telefono> telefonos = new ArrayList<Telefono>();
         telefonos.add(t1);
         telefonos.add(t2);
@@ -79,7 +86,7 @@ public class Controlador {
     }
 
     public void deletePersona() {
-        pr.delete(1);
+        pr.delete(5);
     }
 
     public void updatePersona() {
@@ -99,48 +106,6 @@ public class Controlador {
         Compania c = new Compania("DIGI");
         Telefono t = new Telefono(604828168, c);
         tr.update(132346789, t);
-    }
-
-    public void todoTelefono() {
-        List<Telefono> t = tr.todoTelefono();
-        for (Telefono telefono : t) {
-            v.mostrar(telefono.toString());
-        }
-    }
-
-    public void telefonoByPersona() {
-        List<Telefono> t = tr.telefonoByPersona(3);
-        for (Telefono telefono : t) {
-            v.mostrar(telefono.toString());
-        }
-    }
-
-    public void telefonoByCompania() {
-        List<Telefono> t = tr.telefonoByCompania("Movistar");
-        v.mostrar("-----------------------");
-        for (Telefono telefono : t) {
-            v.mostrar(telefono.toString());
-        }
-        v.mostrar("-----------------------");
-
-    }
-
-    public void telefonoByCompaniaNamedQ() {
-        List<Telefono> t = tr.telefonoByCompaniaNamedQ("DIGI");
-        v.mostrar("-----------------------");
-        for (Telefono telefono : t) {
-            v.mostrar(telefono.toString());
-        }
-        v.mostrar("-----------------------");
-    }
-
-    public void telByPerComNamedQ() {
-        List<Telefono> t = tr.telByPerComNamedQ(5, "Madrid");
-        v.mostrar("-----------------------");
-        for (Telefono telefono : t) {
-            v.mostrar(telefono.toString());
-        }
-        v.mostrar("-----------------------");
     }
 
     public void personaTodo() {
@@ -170,5 +135,89 @@ public class Controlador {
 
     public void cerrar2() {
         em2.close();
+    }
+
+    /*
+        ACTIVIDADES
+     */
+    public void todoTelefono() {
+        List<Telefono> t = tr.todoTelefono();
+        v.mostrar("-----------------------");
+        for (Telefono telefono : t) {
+            v.mostrar(telefono.toString());
+        }
+        v.mostrar("-----------------------");
+    }
+
+    public void telefonoByPersona() {
+        List<Telefono> t = tr.telefonoByPersona(3);
+        v.mostrar("-----------------------");
+        for (Telefono telefono : t) {
+            v.mostrar(telefono.toString());
+        }
+        v.mostrar("-----------------------");
+
+    }
+
+    public void telefonoByCompania() {
+        List<Telefono> t = tr.telefonoByCompania("Movistar");
+        v.mostrar("-----------------------");
+        for (Telefono telefono : t) {
+            v.mostrar(telefono.toString());
+        }
+        v.mostrar("-----------------------");
+    }
+
+    public void telefonoNumByCompania() {
+        List<Integer> t = tr.telefonoNumByCompania("Movistar");
+        v.mostrar("-----------------------");
+        for (Integer num : t) {
+            v.mostrar(num.toString());
+        }
+        v.mostrar("-----------------------");
+    }
+
+    public void telefonoByLocNamedQ() {
+        List<Telefono> t = tr.telefonoByLocNamedQ("Madrid");
+        v.mostrar("-----------------------");
+        for (Telefono telefono : t) {
+            v.mostrar(telefono.toString());
+        }
+        v.mostrar("-----------------------");
+    }
+
+    public void telByPerComNamedQ() {
+        List<Telefono> t = tr.telByPerComNamedQ(6, "Barcelona");
+        v.mostrar("-----------------------");
+        for (Telefono telefono : t) {
+            v.mostrar(telefono.toString());
+        }
+        v.mostrar("-----------------------");
+    }
+
+    public void getPersonNative() {
+        Persona p = pr.getPersonNative(4);
+        v.mostrar(p.toString());
+    }
+
+    public void getPersonasByNombreFecha() {
+        List<Persona> personas = pr.getPersonasByNombreFecha("Pedro", new Date(2025, 01, 29));
+        for (Persona persona : personas) {
+            v.mostrar(persona.toString());
+        }
+    }
+
+    public void getPersonasNombre() {
+        List<Persona> personas = pr.getPersonasNombre();
+        for (Persona persona : personas) {
+            v.mostrar(persona.toString());
+        }
+    }
+
+    public void getTelefonoNomPer() {
+        List<Telefono> telefonos = tr.getTelefonoNomPer();
+        for (Telefono telefono : telefonos) {
+            v.mostrar(telefono.toString());
+        }
     }
 }

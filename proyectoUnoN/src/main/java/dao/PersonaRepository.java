@@ -6,7 +6,9 @@ package dao;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import modelo.*;
@@ -120,4 +122,25 @@ public class PersonaRepository {
         }
     }
 
+    //CONSULTA NATIVA
+    //Devolver personas con un nombre y nacidas de una fecha
+    public List<Persona> getPersonasByNombreFecha(String nombre, Date fecha) {
+        List<Persona> personas = em.createNativeQuery("select cod, nombre, apellidoPrimero, fNacimiento from Persona where nombre=:nom and fNacimiento=:fec", Persona.class).setParameter("nom", nombre).setParameter("fec", fecha).getResultList();
+        return personas;
+    }
+
+    //Devolver la persona con un id
+    public Persona getPersonNative(int id) {
+        Persona p = (Persona) em.createNativeQuery("select cod, nombre, apellidoPrimero, fNacimiento from Persona where cod=:id", Persona.class).setParameter("id", id).getSingleResult();
+        return p;
+    }
+
+    //Consulta que devuelva las personas que se llamen pepe, pedro o paco y que
+    //ademas tengan su apellido 3 o mas letras
+    public List<Persona> getPersonasNombre() {
+        List<Persona> personas = new ArrayList<>();
+        String sql = "select * from persona where nombre in('Pepe','Pedro','Paco') AND apellidoPrimero LIKE '____%'";
+        personas = em.createQuery("select p from Persona p where p.nombre IN ('Pepe','Pedro','Paco') AND apellidoPrimero LIKE '____%'").getResultList();
+        return personas;
+    }
 }

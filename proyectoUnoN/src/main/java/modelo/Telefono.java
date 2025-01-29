@@ -15,7 +15,8 @@ import java.util.Objects;
 @Entity
 @Table(name = "Telefono")
 @NamedQueries({//ESTO ES PARTE DE LO QUE MANDO
-    @NamedQuery(name = "telByCompania", query = "select t from Telefono t where t.c.nombre=:compania"),
+    
+    @NamedQuery(name = "telByLoc", query = "select t from Telefono t where t.c.localidad=:loc"),
     @NamedQuery(name = "telByPersonaLocalidad", query = "select t from Telefono t where t.p.id=:id_per AND t.c.localidad=:com_loc")
 })
 public class Telefono implements Serializable {
@@ -53,18 +54,13 @@ public class Telefono implements Serializable {
         ManyToOne
         ManyToMany
      */
-    public Telefono(int telefono, Persona p) {
-        this.telefono = telefono;
-        this.p = p;
+    public Telefono() {
     }
 
     public Telefono(int telefono, Compania c, Persona p) {
         this.telefono = telefono;
         this.c = c;
         this.p = p;
-    }
-
-    public Telefono() {
     }
 
     public Telefono(int telefono, Compania c) {

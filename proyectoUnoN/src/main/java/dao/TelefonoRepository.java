@@ -35,14 +35,13 @@ public class TelefonoRepository {
         return t;
     }
 
-     public void cerrar(EntityManager e) {
+    public void cerrar(EntityManager e) {
         e.close();
     }
-    
-    
+
     /*
     ESTO FUE LO QUE HICIMOS HOY
-    */
+     */
     public void update(int id, Telefono telfNuevo) {
         Telefono t = selectById(id);
         if (t != null) {
@@ -72,7 +71,6 @@ public class TelefonoRepository {
         }
     }
 
-   
     /*
     ACTIVIDADES QUE MANDO
         1. Devolver todos los telefonos
@@ -81,34 +79,44 @@ public class TelefonoRepository {
         4. NameQuery:Devolver los telefono de una localidad determinada
         5. NameQuery: Devolver los telefono de una persona y de una localidad
      */
+    //CONSULTA 1
     public List<Telefono> todoTelefono() {
-        List<Telefono> telefonos = new ArrayList<>();
-        telefonos = em.createQuery("select t from Telefono t").getResultList();
+        List<Telefono> telefonos = em.createQuery("select t from Telefono t").getResultList();
         return telefonos;
     }
 
+    //CONSULTA 2
     public List<Telefono> telefonoByPersona(int idPersona) {
-        List<Telefono> telefonos = new ArrayList<>();
-        telefonos = em.createQuery("select t from Telefono t where t.p.id=:id_per").setParameter("id_per", idPersona).getResultList();
+        List<Telefono> telefonos = em.createQuery("select t from Telefono t where t.p.id=:id_per").setParameter("id_per", idPersona).getResultList();
         return telefonos;
     }
 
+    //CONSULTA 3
     public List<Telefono> telefonoByCompania(String nombreCompania) {
-        List<Telefono> telefonos = new ArrayList<>();
-        telefonos = em.createQuery("select t from Telefono t where t.c.nombre=:compania").setParameter("compania", nombreCompania).getResultList();
+        List<Telefono> telefonos = em.createQuery("select t from Telefono t where t.c.nombre=:compania").setParameter("compania", nombreCompania).getResultList();
         return telefonos;
     }
 
-    public List<Telefono> telefonoByCompaniaNamedQ(String nombreCompania) {
-        List<Telefono> telefonos = new ArrayList<>();
-        telefonos = em.createNamedQuery("telByCompania", Telefono.class).setParameter("compania", nombreCompania).getResultList();
+    public List<Integer> telefonoNumByCompania(String nombreCom) {
+        List<Integer> telefonos = em.createQuery("select t.telefono from Telefono t where t.c.nombre=:compania").setParameter("compania", nombreCom).getResultList();
         return telefonos;
     }
 
+    //CONSULTA 4
+    public List<Telefono> telefonoByLocNamedQ(String localidad) {
+        List<Telefono> telefonos = em.createNamedQuery("telByLoc", Telefono.class).setParameter("loc", localidad).getResultList();
+        return telefonos;
+    }
+
+    //CONSULTA 5
     public List<Telefono> telByPerComNamedQ(int id, String localidad) {
         List<Telefono> telefonos = em.createNamedQuery("telByPersonaLocalidad", Telefono.class).setParameter("id_per", id).setParameter("com_loc", localidad).getResultList();
         return telefonos;
     }
 
-    
+    //Devolver telefono de unas personas Pepe, Paco, Pedro
+    public List<Telefono> getTelefonoNomPer() {
+        List<Telefono> telefonos = em.createQuery("select t from Telefono t where t.p.nombre IN ('Pepe','Paco','Pedro')").getResultList();
+        return telefonos;
+    }
 }

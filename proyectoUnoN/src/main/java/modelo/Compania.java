@@ -5,18 +5,21 @@
 package modelo;
 
 import jakarta.persistence.*;
+import java.io.Serializable;
 
 /**
  *
  * @author victo
  */
 @Embeddable
-public class Compania {
+public class Compania implements Serializable {
 
     @Column(name = "nombreCompania", nullable = false, length = 30)
     private String nombre;
+
     @Column(name = "telCompania", length = 9)
     private int telefono;
+
     @Column(name = "localidadCompania", length = 30)
     private String localidad;
 
