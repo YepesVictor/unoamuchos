@@ -58,12 +58,14 @@ public class Controlador {
 //        telefonoNumByCompania();
 //        telefonoByLocNamedQ();
 //        telByPerComNamedQ();
-//getPersonNative();
+//        getPersonNative();
 //        getPersonasByNombreFecha();
 //        getPersonasNombre();
-        getTelefonoNomPer();
+//        getTelefonoNomPer();
 //        cerrar();
 //        cerrar2();
+//        selectCriteria();
+        getTelefonosTop();
     }
 
     public void insertarPersona() {
@@ -201,7 +203,7 @@ public class Controlador {
     }
 
     public void getPersonasByNombreFecha() {
-        List<Persona> personas = pr.getPersonasByNombreFecha("Pedro", new Date(2025, 01, 29));
+        List<Persona> personas = pr.getPersonasByNombreFecha("Victor", new Date("2020/06/01"));
         for (Persona persona : personas) {
             v.mostrar(persona.toString());
         }
@@ -216,6 +218,20 @@ public class Controlador {
 
     public void getTelefonoNomPer() {
         List<Telefono> telefonos = tr.getTelefonoNomPer();
+        for (Telefono telefono : telefonos) {
+            v.mostrar(telefono.toString());
+        }
+    }
+
+    public void selectCriteria() {
+        List<Persona> personas = pr.selectCriteria();
+        for (Persona persona : personas) {
+            v.mostrar(persona.toString());
+        }
+    }
+
+    public void getTelefonosTop() {
+        List<Telefono> telefonos = tr.getTelefonosTop();
         for (Telefono telefono : telefonos) {
             v.mostrar(telefono.toString());
         }

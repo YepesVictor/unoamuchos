@@ -6,6 +6,8 @@ package dao;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
+import jakarta.persistence.criteria.*;
+import jakarta.persistence.criteria.CriteriaQuery;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
@@ -123,9 +125,10 @@ public class PersonaRepository {
     }
 
     //CONSULTA NATIVA
-    //Devolver personas con un nombre y nacidas de una fecha
+    //Devolver personas con un nombre y nacidas antes de una fecha
     public List<Persona> getPersonasByNombreFecha(String nombre, Date fecha) {
-        List<Persona> personas = em.createNativeQuery("select cod, nombre, apellidoPrimero, fNacimiento from Persona where nombre=:nom and fNacimiento=:fec", Persona.class).setParameter("nom", nombre).setParameter("fec", fecha).getResultList();
+        System.out.println(fecha);
+        List<Persona> personas = em.createNativeQuery("select cod, nombre, apellidoPrimero, fNacimiento from Persona where fNacimiento<:fec AND nombre=:nom", Persona.class).setParameter("nom", nombre).setParameter("fec", fecha).getResultList();
         return personas;
     }
 
@@ -141,6 +144,31 @@ public class PersonaRepository {
         List<Persona> personas = new ArrayList<>();
         String sql = "select * from persona where nombre in('Pepe','Pedro','Paco') AND apellidoPrimero LIKE '____%'";
         personas = em.createQuery("select p from Persona p where p.nombre IN ('Pepe','Pedro','Paco') AND apellidoPrimero LIKE '____%'").getResultList();
+        return personas;
+    }
+
+    //Consultas con CRITERIA
+    public List<Persona> selectCriteria() {
+        //Primero: CReamos un CriteriaBuilder
+        CriteriaBuilder builder = em.getCriteriaBuilder();
+
+        CriteriaUpdate<Persona> criteriaUp = builder.createCriteriaUpdate(Persona.class);
+        CriteriaDelete<Persona> criteriaDel = builder.createCriteriaDelete(Persona.class);
+
+        //A partir del CriteriaBuilder podemos crear un criteria Update, Delete o Query
+        CriteriaQuery<Persona> criteria = builder.createQuery(Persona.class);
+        //Creamos un root que es la base de donde vamos a coger los valores
+        Root<Persona> root = criteria.from(Persona.class);
+
+        //Con root devuelvo todo, si quiero coger un campo root.get("nombreCampo")
+        criteria.select(root);
+        //Comprueba que la expresion este en la clase a la que se refiere
+//        criteria.where(builder.in(root.get("nombre")));
+        criteria.where(builder.or(builder.like(root.get("nombre"), "Pedro"), builder.between(root.get("nombre"), "A", "B")));
+
+        List<Persona> personas = em.createQuery(criteria).getResultList();
+
+//        In<Persona> inP=builder.in(root.get("nombre"));
         return personas;
     }
 }

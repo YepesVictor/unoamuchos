@@ -6,6 +6,9 @@ package dao;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Root;
 import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
 import java.util.List;
@@ -117,6 +120,43 @@ public class TelefonoRepository {
     //Devolver telefono de unas personas Pepe, Paco, Pedro
     public List<Telefono> getTelefonoNomPer() {
         List<Telefono> telefonos = em.createQuery("select t from Telefono t where t.p.nombre IN ('Pepe','Paco','Pedro')").getResultList();
+        return telefonos;
+    }
+
+    //CONSULTA CON CRITERIA 
+    /*
+    select persona
+    from Telefono
+    group by persona
+    having count(*)=(select count(*)
+                    from telefono
+                    group by persona
+                    order by count(*) desc
+                    limit 1)
+     */
+    public List<Telefono> getTelefonosTop() {
+        List<Telefono> telefonos = new ArrayList<>();
+
+        CriteriaBuilder builder = em.getCriteriaBuilder();
+        CriteriaQuery<Telefono> criteria = builder.createQuery(Telefono.class);
+        CriteriaQuery<Telefono> criteria2 = builder.createQuery(Telefono.class);
+        //Consulta 1
+        Root<Telefono> root = criteria.from(Telefono.class);
+        criteria.select(root.get("p.id"));
+        criteria.groupBy(root.get("p.id"));
+
+//        criteria.subquery(Telefono.class);
+        //Subconsulta
+        Root<Telefono> root2 = criteria2.from(Telefono.class);
+        criteria2.select(root2);
+        criteria2.groupBy(root2.get("p.id"));
+//        criteria2.orderBy(builder.count(root2));
+        //Coger el limit
+        //Para coger primer elemento de una lista de criteria, actua como limit
+//        criteria.getOrderList().get(0);
+        criteria.having(builder.equal(builder.count(root), builder.count(root2)));
+
+        telefonos = em.createQuery(criteria).getResultList();
         return telefonos;
     }
 }
