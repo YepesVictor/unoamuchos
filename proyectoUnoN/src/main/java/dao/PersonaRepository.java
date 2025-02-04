@@ -35,6 +35,7 @@ public class PersonaRepository {
             em.persist(p);
             //Guardar
             em.getTransaction().commit();
+            
         }
     }
 

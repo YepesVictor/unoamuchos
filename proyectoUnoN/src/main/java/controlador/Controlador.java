@@ -37,7 +37,7 @@ public class Controlador {
 
         this.pr = new PersonaRepository(em);
         this.tr = new TelefonoRepository(em2);
-//        insertarPersonaTelefono();
+        insertarPersonaTelefono();
 //        insertarTelefono();
 //        insertarPersona();
 //        personaTodo();
@@ -65,7 +65,7 @@ public class Controlador {
 //        cerrar();
 //        cerrar2();
 //        selectCriteria();
-        getTelefonosTop();
+//        getTelefonosTop();
     }
 
     public void insertarPersona() {
@@ -75,10 +75,10 @@ public class Controlador {
     }
 
     public void insertarPersonaTelefono() {
-        Compania c = new Compania("DIGI", 123456789, "Logroño");
-        Telefono t1 = new Telefono(999999999, c);
-        Telefono t2 = new Telefono(888888888, c);
-        Telefono t3 = new Telefono(777777777, c);
+        Compania c = new Compania("Vodafone", 123456789, "Logroño");
+        Telefono t1 = new Telefono(222222222, c);
+        Telefono t2 = new Telefono(555555555, c);
+        Telefono t3 = new Telefono(333333333, c);
         Collection<Telefono> telefonos = new ArrayList<Telefono>();
         telefonos.add(t1);
         telefonos.add(t2);

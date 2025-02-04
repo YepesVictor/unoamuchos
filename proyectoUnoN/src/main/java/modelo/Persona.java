@@ -43,8 +43,8 @@ public class Persona implements Serializable {
     /* Siempre hay que indicar cuando sea date, time, datetime o timestamp
     la anotación Temporal */
 
- /*En el name ponemos el nombre que lo identifica en la clase java*/
-    @OneToMany(mappedBy = "Telefono", cascade = CascadeType.ALL)
+    /*En el name ponemos el nombre que lo identifica en la clase java*/
+    @OneToMany(mappedBy = "p", cascade = CascadeType.ALL)
     private Collection<Telefono> telefonos;
 
     public Persona() {

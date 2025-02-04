@@ -43,7 +43,7 @@ public class Telefono implements Serializable {
     private Compania c;
 
     //Tanto el name como la foreign key como el valor referenciado son de la Base de datos
-    @ManyToOne//(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_persona", foreignKey = @ForeignKey(name = "tel_per_fk"))
     // @JoinColumn(name = "id_persona", referencedColumnName = "cod")
     private Persona p;
